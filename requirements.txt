@@ -1,6 +1,6 @@
 Flask
 Flask-Login
 Flask-SQLAlchemy
-Flask-WTF
+Flask-wtf
 Flask-Limiter
 psycopg2-binary
