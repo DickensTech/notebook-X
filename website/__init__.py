@@ -23,9 +23,15 @@ def create_app():
     app.config['SESSION_COOKIE_SECURE'] = True
     app.config['REMEMBER_COOKIE_SECURE'] = True
     app.config['RATELIMIT_STORAGE_URI'] = environ.get('RATELIMIT_STORAGE_URI', 'memory://')
+    database_uri = environ.get('DATABASE_URL', f'sqlite:///{DB_NAME}')
+    if database_uri.startswith('postgres://'):
+        database_uri = database_uri.replace('postgres://', 'postgresql+psycopg2://', 1)
+    elif database_uri.startswith('postgresql://'):
+        database_uri = database_uri.replace('postgresql://', 'postgresql+psycopg2://', 1)
+    app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
+    app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_pre_ping': True}
     csrf.init_app(app)
     limiter.init_app(app)
-    app.config['SQLALCHEMY_DATABASE_URI']=f'sqlite:///{DB_NAME}'
     db.init_app(app)
    
     from .views import views
