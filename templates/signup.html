@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Create an account · NoteSpace{% endblock %}
+{% block main_class %}auth-shell{% endblock %}
+{% block content %}
+<section class="auth-card">
+    <div class="eyebrow"><span class="eyebrow-dot"></span> YOUR NEXT CHAPTER</div>
+    <h1>Make room for ideas.</h1>
+    <p class="auth-intro">Create your NoteSpace account and get started.</p>
+    <form id="signup-form" method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div class="form-field">
+            <label for="firstName">First name</label>
+            <input class="form-control" type="text" id="firstName" name="firstName" autocomplete="given-name" placeholder="Your first name" required>
+        </div>
+        <div class="form-field">
+            <label for="secondName">Last name</label>
+            <input class="form-control" type="text" id="secondName" name="secondName" autocomplete="family-name" placeholder="Your last name" required>
+        </div>
+        <div class="form-field">
+            <label for="email">Email address</label>
+            <input class="form-control" type="email" id="email" name="email" autocomplete="email" placeholder="you@example.com" required>
+        </div>
+        <div class="form-field">
+            <label for="password1">Password</label>
+            <div class="password-input-wrap">
+                <input class="form-control" type="password" id="password1" name="password1" autocomplete="new-password" placeholder="Create a password" required>
+                <button class="password-toggle" type="button" aria-controls="password1" aria-label="Show password" aria-pressed="false">
+                    <svg class="password-eye" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.4-6 9.5-6 9.5 6 9.5 6-3.4 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="2.5"/></svg>
+                    <svg class="password-eye-off" viewBox="0 0 24 24" aria-hidden="true"><path d="m3 3 18 18M10.6 6.2A10.7 10.7 0 0 1 12 6c6.1 0 9.5 6 9.5 6a16 16 0 0 1-3.1 3.6M6.2 6.3C3.8 7.8 2.5 12 2.5 12s3.4 6 9.5 6c1 0 1.9-.2 2.7-.5"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>
+                </button>
+            </div>
+            <div class="password-strength" id="password-strength" data-strength="0" aria-live="polite">
+                <div class="password-strength-meter" aria-hidden="true">
+                    <span></span><span></span><span></span><span></span>
+                </div>
+                <p class="password-strength-label" id="password-strength-label">Enter a password to check its strength.</p>
+                <p class="password-strength-hint">Use 8 or more characters with a mix of letters, numbers, and symbols for a stronger password.</p>
+            </div>
+        </div>
+        <div class="form-field">
+            <label for="password2">Confirm password</label>
+            <div class="password-input-wrap">
+                <input class="form-control" type="password" id="password2" name="password2" autocomplete="new-password" placeholder="Enter it once more" required>
+                <button class="password-toggle" type="button" aria-controls="password2" aria-label="Show password" aria-pressed="false">
+                    <svg class="password-eye" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.4-6 9.5-6 9.5 6 9.5 6-3.4 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="2.5"/></svg>
+                    <svg class="password-eye-off" viewBox="0 0 24 24" aria-hidden="true"><path d="m3 3 18 18M10.6 6.2A10.7 10.7 0 0 1 12 6c6.1 0 9.5 6 9.5 6a16 16 0 0 1-3.1 3.6M6.2 6.3C3.8 7.8 2.5 12 2.5 12s3.4 6 9.5 6c1 0 1.9-.2 2.7-.5"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>
+                </button>
+            </div>
+        </div>
+        <button class="primary-button auth-submit" type="submit">Create account</button>
+    </form>
+    <p class="auth-switch">Already have an account? <a href="{{ url_for('auth.login') }}">Log in</a></p>
+</section>
+{% endblock %}

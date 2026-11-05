@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}My notes · NoteSpace{% endblock %}
+{% block content %}
+<div class="dashboard">
+    <aside class="sidebar" aria-label="Notebook navigation">
+        <div class="workspace-label">WORKSPACE</div>
+        <button class="sidebar-item is-active" type="button" data-filter="all">
+            <span class="sidebar-icon" aria-hidden="true">▤</span><span>All notes</span><span class="sidebar-count" id="note-count">0</span>
+        </button>
+        <button class="sidebar-item" type="button" data-filter="work">
+            <span class="sidebar-icon" aria-hidden="true">▧</span><span>Work</span>
+        </button>
+        <button class="sidebar-item" type="button" data-filter="personal">
+            <span class="sidebar-icon" aria-hidden="true">♡</span><span>Personal</span>
+        </button>
+        <div class="sidebar-divider"></div>
+        <div class="sidebar-tip">
+            <div class="tip-icon" aria-hidden="true">✦</div>
+            <strong>A little space to think.</strong>
+            <p>Keep your ideas, plans, and everyday notes all in one place.</p>
+        </div>
+        <div class="sidebar-footer"><span class="online-dot"></span> Your notes are saved to your account</div>
+    </aside>
+
+    <section class="notes-area" aria-labelledby="page-heading">
+        <div class="welcome-row">
+            <div>
+                <div class="eyebrow"><span class="eyebrow-dot"></span> YOUR PERSONAL SPACE</div>
+                <h1 id="page-heading">Good ideas start here<span class="heading-period">.</span></h1>
+                <p class="page-subtitle">A calm place to collect everything on your mind.</p>
+            </div>
+            <button class="primary-button new-note-button" id="new-note-button" type="button">
+                <span aria-hidden="true">＋</span> New note
+            </button>
+        </div>
+
+        <form class="composer" id="note-form" hidden>
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <label class="sr-only" for="note-title">Note title</label>
+            <input class="composer-title" id="note-title" name="title" maxlength="80" placeholder="Give your note a title..." required>
+            <label class="sr-only" for="note-content">Note content</label>
+            <textarea id="note-content" name="content" rows="4" maxlength="2000" placeholder="Start writing..." required></textarea>
+            <div class="composer-actions">
+                <label class="category-select-label" for="note-category">Save to</label>
+                <select id="note-category" name="category">
+                    <option value="personal">Personal</option>
+                    <option value="work">Work</option>
+                </select>
+                <span class="composer-spacer"></span>
+                <button class="text-button" id="cancel-note-button" type="button">Cancel</button>
+                <button class="primary-button save-button" type="submit">Save note</button>
+            </div>
+        </form>
+
+        <div class="notes-toolbar">
+            <div class="section-heading">
+                <h2 id="notes-heading">All notes</h2>
+                <span class="result-count" id="result-count"></span>
+            </div>
+            <label class="search-box">
+                <span class="search-icon" aria-hidden="true">⌕</span>
+                <span class="sr-only">Search your notes</span>
+                <input type="search" id="note-search" placeholder="Search notes..." autocomplete="off">
+                <kbd>/</kbd>
+            </label>
+        </div>
+
+        <div class="notes-grid" id="notes-grid" data-notes-url="{{ url_for('views.notes_api') }}" aria-live="polite"></div>
+        <div class="empty-state" id="empty-state" hidden>
+            <div class="empty-illustration" aria-hidden="true">✎</div>
+            <h3>No notes found</h3>
+            <p>Try another search or create a note to get started.</p>
+            <button class="text-button" id="empty-new-note" type="button">Create your first note <span aria-hidden="true">→</span></button>
+        </div>
+        <p class="storage-note"><span aria-hidden="true">♡</span> Your personal notes are saved to your account.</p>
+    </section>
+</div>
+{% endblock %}
