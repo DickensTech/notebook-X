@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from flask_wtf.csrf import CSRFProtect
-from os import environ, path
+from os import environ
 
 
 db= SQLAlchemy()
@@ -56,8 +56,6 @@ def create_app():
     return app
 
 def create_database(app):
-    if not path.exists('website/' + DB_NAME):
-        with app.app_context():
-            db.create_all()
-            print('Created Database')
+    with app.app_context():
+        db.create_all()
             
